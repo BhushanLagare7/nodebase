@@ -1,4 +1,5 @@
-import type { ReactNode, MouseEvent } from 'react';
+import Link from "next/link";
+import type { ReactNode, MouseEvent } from "react";
 import {
   AlertTriangleIcon,
   Loader2Icon,
@@ -7,10 +8,12 @@ import {
   PlusIcon,
   SearchIcon,
   TrashIcon,
-} from 'lucide-react';
-import Link from 'next/link';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
+} from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 import {
   Empty,
   EmptyContent,
@@ -18,15 +21,14 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from './ui/empty';
-import { cn } from '@/lib/utils';
-import { Card, CardContent, CardDescription, CardTitle } from './ui/card';
+} from "./ui/empty";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
+} from "./ui/dropdown-menu";
+import { Card, CardContent, CardDescription, CardTitle } from "./ui/card";
 
 type EntityHeaderProps = {
   title: string;
@@ -113,7 +115,7 @@ interface EntitySearchProps {
 export const EntitySearch = ({
   value,
   onChange,
-  placeholder = 'Search',
+  placeholder = "Search",
 }: EntitySearchProps) => {
   return (
     <div className="relative ml-auto">
@@ -122,7 +124,7 @@ export const EntitySearch = ({
         className="max-w-[200px] bg-background shadow-none border-border pl-8"
         placeholder={placeholder}
         value={value}
-        onChange={e => onChange(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
       />
     </div>
   );
@@ -237,7 +239,7 @@ export function EntityList<T>({
   }
 
   return (
-    <div className={cn('flex flex-col gap-y-4', className)}>
+    <div className={cn("flex flex-col gap-y-4", className)}>
       {items.map((item, index) => (
         <div key={getKey ? getKey(item, index) : index}>
           {renderItem(item, index)}
@@ -281,8 +283,8 @@ export const EntityItem = ({
     <Link href={href} prefetch>
       <Card
         className={cn(
-          'p-4 shadow-none hover:shadow cursor-pointer',
-          isRemoving && 'opacity-50 cursor-not-allowed',
+          "p-4 shadow-none hover:shadow cursor-pointer",
+          isRemoving && "opacity-50 cursor-not-allowed",
           className
         )}
       >
@@ -307,14 +309,14 @@ export const EntityItem = ({
                     <Button
                       size="icon"
                       variant="ghost"
-                      onClick={e => e.stopPropagation()}
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <MoreVerticalIcon className="size-4" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="end"
-                    onClick={e => e.stopPropagation()}
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <DropdownMenuItem onClick={handleRemove}>
                       <TrashIcon className="size-4" />

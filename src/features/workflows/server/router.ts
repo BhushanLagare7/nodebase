@@ -1,14 +1,18 @@
-import type { Node, Edge } from '@xyflow/react';
-import { generateSlug } from 'random-word-slugs';
-import { z } from 'zod';
-import prisma from '@/lib/db';
+import { z } from "zod";
+import type { Node, Edge } from "@xyflow/react";
+import { generateSlug } from "random-word-slugs";
+
+import prisma from "@/lib/db";
+
 import {
   createTRPCRouter,
   premiumProcedure,
   protectedProcedure,
-} from '@/trpc/init';
-import { PAGINATION } from '@/config/constants';
-import { NodeType } from '@/generated/prisma';
+} from "@/trpc/init";
+
+import { PAGINATION } from "@/config/constants";
+
+import { NodeType } from "@/generated/prisma";
 
 export const workflowsRouter = createTRPCRouter({
   create: premiumProcedure.mutation(({ ctx }) => {
@@ -63,16 +67,16 @@ export const workflowsRouter = createTRPCRouter({
       });
 
       // Transaction to ensure consistency
-      return await prisma.$transaction(async tx => {
+      return await prisma.$transaction(async (tx) => {
         // Delete existing nodes and connections (cascade deletes connections)
         await tx.node.deleteMany({ where: { workflowId: id } });
 
         // Create nodes
         await tx.node.createMany({
-          data: nodes.map(node => ({
+          data: nodes.map((node) => ({
             id: node.id,
             workflowId: id,
-            name: node.type || 'unknown',
+            name: node.type || "unknown",
             type: node.type as NodeType,
             position: node.position,
             data: node.data || {},
@@ -81,12 +85,12 @@ export const workflowsRouter = createTRPCRouter({
 
         // Create Connections
         await tx.connection.createMany({
-          data: edges.map(edge => ({
+          data: edges.map((edge) => ({
             workflowId: id,
             fromNodeId: edge.source,
             toNodeId: edge.target,
-            fromOutput: edge.sourceHandle || 'main',
-            toInput: edge.targetHandle || 'main',
+            fromOutput: edge.sourceHandle || "main",
+            toInput: edge.targetHandle || "main",
           })),
         });
 
@@ -116,7 +120,7 @@ export const workflowsRouter = createTRPCRouter({
       });
 
       // Transform server nodes to react-flow compatible nodes
-      const nodes: Node[] = workflow.nodes.map(node => ({
+      const nodes: Node[] = workflow.nodes.map((node) => ({
         id: node.id,
         type: node.type,
         position: node.position as { x: number; y: number },
@@ -124,7 +128,7 @@ export const workflowsRouter = createTRPCRouter({
       }));
 
       // Transform server connections to react-flow compatible edges
-      const edges: Edge[] = workflow.connections.map(connection => ({
+      const edges: Edge[] = workflow.connections.map((connection) => ({
         id: connection.id,
         source: connection.fromNodeId,
         target: connection.toNodeId,
@@ -143,7 +147,7 @@ export const workflowsRouter = createTRPCRouter({
           .min(PAGINATION.MIN_PAGE_SIZE)
           .max(PAGINATION.MAX_PAGE_SIZE)
           .default(PAGINATION.DEFAULT_PAGE_SIZE),
-        search: z.string().default(''),
+        search: z.string().default(""),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -155,14 +159,14 @@ export const workflowsRouter = createTRPCRouter({
           take: pageSize,
           where: {
             userId: ctx.auth.user.id,
-            name: { contains: search, mode: 'insensitive' },
+            name: { contains: search, mode: "insensitive" },
           },
-          orderBy: { updatedAt: 'desc' },
+          orderBy: { updatedAt: "desc" },
         }),
         prisma.workflow.count({
           where: {
             userId: ctx.auth.user.id,
-            name: { contains: search, mode: 'insensitive' },
+            name: { contains: search, mode: "insensitive" },
           },
         }),
       ]);

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState, useCallback } from 'react';
-import { useSetAtom } from 'jotai';
+import { useSetAtom } from "jotai";
+import { useState, useCallback } from "react";
 import {
   ReactFlow,
   applyNodeChanges,
@@ -16,13 +16,18 @@ import {
   type EdgeChange,
   type Node,
   type NodeChange,
-} from '@xyflow/react';
-import { ErrorView, LoadingView } from '@/components/entity-components';
-import { useSuspenseWorkflow } from '@/features/workflows/hooks/use-workflows';
-import { nodeComponents } from '@/config/node-components';
-import { AddNodeButton } from './add-node-button';
-import '@xyflow/react/dist/style.css';
-import { editorAtom } from '../store/atoms';
+} from "@xyflow/react";
+
+import { nodeComponents } from "@/config/node-components";
+
+import { ErrorView, LoadingView } from "@/components/entity-components";
+
+import { useSuspenseWorkflow } from "@/features/workflows/hooks/use-workflows";
+
+import { editorAtom } from "../store/atoms";
+import { AddNodeButton } from "./add-node-button";
+
+import "@xyflow/react/dist/style.css";
 
 export const EditorLoading = () => {
   return <LoadingView message="Loading editor..." />;
@@ -42,17 +47,17 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
 
   const onNodesChange = useCallback(
     (changes: NodeChange[]) =>
-      setNodes(nodesSnapshot => applyNodeChanges(changes, nodesSnapshot)),
+      setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
     []
   );
   const onEdgesChange = useCallback(
     (changes: EdgeChange[]) =>
-      setEdges(edgesSnapshot => applyEdgeChanges(changes, edgesSnapshot)),
+      setEdges((edgesSnapshot) => applyEdgeChanges(changes, edgesSnapshot)),
     []
   );
   const onConnect = useCallback(
     (params: Connection) =>
-      setEdges(edgesSnapshot => addEdge(params, edgesSnapshot)),
+      setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
     []
   );
 

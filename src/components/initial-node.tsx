@@ -1,11 +1,12 @@
-'use client';
+"use client";
 
-import { memo, useState } from 'react';
-import type { NodeProps } from '@xyflow/react';
-import { PlusIcon } from 'lucide-react';
-import { PlaceholderNode } from './react-flow/placeholder-node';
-import { WorkflowNode } from './workflow-node';
-import { NodeSelector } from './node-selector';
+import { memo, useState } from "react";
+import { PlusIcon } from "lucide-react";
+import type { NodeProps } from "@xyflow/react";
+
+import { NodeSelector } from "./node-selector";
+import { WorkflowNode } from "./workflow-node";
+import { PlaceholderNode } from "./react-flow/placeholder-node";
 
 export const InitialNode = memo((props: NodeProps) => {
   const [selectorOpen, setSelectorOpen] = useState(false);
@@ -23,4 +24,4 @@ export const InitialNode = memo((props: NodeProps) => {
   );
 });
 
-InitialNode.displayName = 'InitialNode';
+InitialNode.displayName = "InitialNode";

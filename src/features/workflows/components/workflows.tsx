@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import { formatDistanceToNow } from 'date-fns';
-import { useRouter } from 'next/navigation';
-import { WorkflowIcon } from 'lucide-react';
+import { useRouter } from "next/navigation";
+import { WorkflowIcon } from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
+
 import {
   EmptyView,
   EntityContainer,
@@ -13,16 +14,19 @@ import {
   EntitySearch,
   ErrorView,
   LoadingView,
-} from '@/components/entity-components';
-import { useUpgradeModal } from '@/hooks/use-upgrade-modal';
-import type { Workflow } from '@/generated/prisma';
+} from "@/components/entity-components";
+
+import type { Workflow } from "@/generated/prisma";
+
+import { useUpgradeModal } from "@/hooks/use-upgrade-modal";
+
 import {
   useCreateWorkflow,
   useRemoveWorkflow,
   useSuspenseWorkflows,
-} from '../hooks/use-workflows';
-import { useWorkflowsParams } from '../hooks/use-workflows-params';
-import { UseEntitySearch } from '../hooks/use-entity-search';
+} from "../hooks/use-workflows";
+import { UseEntitySearch } from "../hooks/use-entity-search";
+import { useWorkflowsParams } from "../hooks/use-workflows-params";
 
 export const WorkflowsSearch = () => {
   const [params, setParams] = useWorkflowsParams();
@@ -46,8 +50,8 @@ export const WorkflowsList = () => {
   return (
     <EntityList
       items={workflows.data.items}
-      getKey={workflow => workflow.id}
-      renderItem={workflow => <WorkflowItem data={workflow} />}
+      getKey={(workflow) => workflow.id}
+      renderItem={(workflow) => <WorkflowItem data={workflow} />}
       emptyView={<WorkflowsEmpty />}
     />
   );
@@ -60,10 +64,10 @@ export const WorkflowsHeader = ({ disabled }: { disabled?: boolean }) => {
 
   const handleCreate = () => {
     createWorkflow.mutate(undefined, {
-      onSuccess: data => {
+      onSuccess: (data) => {
         router.push(`/workflows/${data.id}`);
       },
-      onError: error => {
+      onError: (error) => {
         handleError(error);
       },
     });
@@ -93,7 +97,7 @@ export const WorkflowsPagination = () => {
       disabled={workflows.isFetching}
       totalPages={workflows.data.totalPages}
       page={workflows.data.page}
-      onPageChange={page => setParams({ ...params, page })}
+      onPageChange={(page) => setParams({ ...params, page })}
     />
   );
 };
@@ -129,10 +133,10 @@ export const WorkflowsEmpty = () => {
 
   const handleCreate = () => {
     createWorkflow.mutate(undefined, {
-      onSuccess: data => {
+      onSuccess: (data) => {
         router.push(`/workflows/${data.id}`);
       },
-      onError: error => {
+      onError: (error) => {
         handleError(error);
       },
     });
@@ -162,8 +166,8 @@ export const WorkflowItem = ({ data }: { data: Workflow }) => {
       title={data.name}
       subtitle={
         <>
-          Updated {formatDistanceToNow(data.updatedAt, { addSuffix: true })}{' '}
-          &bull; Created{' '}
+          Updated {formatDistanceToNow(data.updatedAt, { addSuffix: true })}{" "}
+          &bull; Created{" "}
           {formatDistanceToNow(data.createdAt, { addSuffix: true })}
         </>
       }

@@ -1,16 +1,17 @@
-'use client';
+"use client";
 
-import { memo, type ReactNode } from 'react';
-import Image from 'next/image';
-import { type NodeProps, Position, useReactFlow } from '@xyflow/react';
-import type { LucideIcon } from 'lucide-react';
-import { BaseNode, BaseNodeContent } from '@/components/react-flow/base-node';
-import { BaseHandle } from '@/components/react-flow/base-handle';
-import { WorkflowNode } from '@/components/workflow-node';
+import Image from "next/image";
+import { memo, type ReactNode } from "react";
+import type { LucideIcon } from "lucide-react";
+import { type NodeProps, Position, useReactFlow } from "@xyflow/react";
+
 import {
   type NodeStatus,
   NodeStatusIndicator,
-} from '@/components/react-flow/node-status-indicator';
+} from "@/components/react-flow/node-status-indicator";
+import { WorkflowNode } from "@/components/workflow-node";
+import { BaseHandle } from "@/components/react-flow/base-handle";
+import { BaseNode, BaseNodeContent } from "@/components/react-flow/base-node";
 
 interface BaseExecutionNodeProps extends NodeProps {
   icon: LucideIcon | string;
@@ -29,16 +30,16 @@ export const BaseExecutionNode = memo(
     name,
     description,
     children,
-    status = 'initial',
+    status = "initial",
     onSettings,
     onDoubleClick,
   }: BaseExecutionNodeProps) => {
     const { setNodes, setEdges } = useReactFlow();
 
     const handleDelete = () => {
-      setNodes(currentNodes => currentNodes.filter(node => node.id !== id));
-      setEdges(currentEdges =>
-        currentEdges.filter(edge => edge.source !== id && edge.target !== id)
+      setNodes((currentNodes) => currentNodes.filter((node) => node.id !== id));
+      setEdges((currentEdges) =>
+        currentEdges.filter((edge) => edge.source !== id && edge.target !== id)
       );
     };
 
@@ -52,7 +53,7 @@ export const BaseExecutionNode = memo(
         <NodeStatusIndicator status={status} variant="border">
           <BaseNode status={status} onDoubleClick={onDoubleClick}>
             <BaseNodeContent>
-              {typeof Icon === 'string' ? (
+              {typeof Icon === "string" ? (
                 <Image src={Icon} alt={name} width={16} height={16} />
               ) : (
                 <Icon className="size-4 text-muted-foreground" />
@@ -76,4 +77,4 @@ export const BaseExecutionNode = memo(
   }
 );
 
-BaseExecutionNode.displayName = 'BaseExecutionNode';
+BaseExecutionNode.displayName = "BaseExecutionNode";

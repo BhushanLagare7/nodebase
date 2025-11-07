@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   AlertDialog,
@@ -9,8 +9,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { authClient } from '@/lib/auth-client';
+} from "@/components/ui/alert-dialog";
+
+import { authClient } from "@/lib/auth-client";
 
 interface UpgradeModalProps {
   open: boolean;
@@ -31,7 +32,7 @@ export const UpgradeModal = ({ open, onOpenChange }: UpgradeModalProps) => {
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
-            onClick={() => authClient.checkout({ slug: 'pro' })}
+            onClick={() => authClient.checkout({ slug: "pro" })}
           >
             Upgrade Now
           </AlertDialogAction>

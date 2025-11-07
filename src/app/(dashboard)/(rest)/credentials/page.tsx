@@ -1,4 +1,4 @@
-import { requireAuth } from '@/lib/auth-utils';
+import { requireAuth } from "@/lib/auth-utils";
 
 const Credentials = async () => {
   await requireAuth();

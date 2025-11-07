@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import {
   CreditCardIcon,
   FolderOpenIcon,
@@ -10,7 +10,9 @@ import {
   KeyIcon,
   LogOutIcon,
   StarIcon,
-} from 'lucide-react';
+} from "lucide-react";
+
+import { authClient } from "@/lib/auth-client";
 
 import {
   Sidebar,
@@ -22,28 +24,28 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar';
-import { authClient } from '@/lib/auth-client';
-import { useHasActiveSubscription } from '@/features/subscriptions/hooks/use-subscription';
+} from "@/components/ui/sidebar";
+
+import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use-subscription";
 
 const menuItems = [
   {
-    title: 'Main',
+    title: "Main",
     items: [
       {
-        title: 'Workflows',
+        title: "Workflows",
         icon: FolderOpenIcon,
-        url: '/workflows',
+        url: "/workflows",
       },
       {
-        title: 'Credentials',
+        title: "Credentials",
         icon: KeyIcon,
-        url: '/credentials',
+        url: "/credentials",
       },
       {
-        title: 'Executions',
+        title: "Executions",
         icon: HistoryIcon,
-        url: '/executions',
+        url: "/executions",
       },
     ],
   },
@@ -72,17 +74,17 @@ export const AppSidebar = () => {
         </SidebarMenuItem>
       </SidebarHeader>
       <SidebarContent>
-        {menuItems.map(group => (
+        {menuItems.map((group) => (
           <SidebarGroup key={group.title}>
             <SidebarGroupContent>
               <SidebarMenu>
-                {group.items.map(item => (
+                {group.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
                       tooltip={item.title}
                       isActive={
-                        item.url === '/'
-                          ? pathname === '/'
+                        item.url === "/"
+                          ? pathname === "/"
                           : pathname.startsWith(item.url)
                       }
                       className="h-10 px-4 gap-x-4"
@@ -107,7 +109,7 @@ export const AppSidebar = () => {
               <SidebarMenuButton
                 tooltip="Upgrade to Pro"
                 className="h-10 px-4 gap-x-4"
-                onClick={() => authClient.checkout({ slug: 'pro' })}
+                onClick={() => authClient.checkout({ slug: "pro" })}
               >
                 <StarIcon className="w-4 h-4" />
                 <span>Upgrade to Pro</span>
@@ -132,7 +134,7 @@ export const AppSidebar = () => {
                 authClient.signOut({
                   fetchOptions: {
                     onSuccess: () => {
-                      router.push('/login');
+                      router.push("/login");
                     },
                   },
                 })

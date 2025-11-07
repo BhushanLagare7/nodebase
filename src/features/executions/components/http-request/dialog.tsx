@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from "zod";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   Dialog,
   DialogContent,
@@ -11,7 +12,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -20,21 +21,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
-  endpoint: z.url({ message: 'Please enter a valid URL' }),
-  method: z.enum(['GET', 'POST', 'PUT', 'PATCH', 'DELETE']),
+  endpoint: z.url({ message: "Please enter a valid URL" }),
+  method: z.enum(["GET", "POST", "PUT", "PATCH", "DELETE"]),
   body: z.string().optional(),
   // .refine() // TODO: JSON5
 });
@@ -46,7 +47,7 @@ interface Props {
   onOpenChange: (open: boolean) => void;
   onSubmit: (values: z.infer<typeof formSchema>) => void;
   defaultEndPoint?: string;
-  defaultMethod?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  defaultMethod?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   defaultBody?: string;
 }
 
@@ -54,9 +55,9 @@ export const HttpRequestDialog = ({
   open,
   onOpenChange,
   onSubmit,
-  defaultEndPoint = '',
-  defaultMethod = 'GET',
-  defaultBody = '',
+  defaultEndPoint = "",
+  defaultMethod = "GET",
+  defaultBody = "",
 }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -78,8 +79,8 @@ export const HttpRequestDialog = ({
     }
   }, [defaultBody, defaultEndPoint, defaultMethod, form, open]);
 
-  const watchMethod = form.watch('method');
-  const showBodyField = ['POST', 'PUT', 'PATCH'].includes(watchMethod);
+  const watchMethod = form.watch("method");
+  const showBodyField = ["POST", "PUT", "PATCH"].includes(watchMethod);
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     onSubmit(values);
@@ -143,8 +144,8 @@ export const HttpRequestDialog = ({
                     />
                   </FormControl>
                   <FormDescription>
-                    Static URL or use {'{{variables}}'} for simple values or{' '}
-                    {'{{json variable}}'} to stringify objects
+                    Static URL or use {"{{variables}}"} for simple values or{" "}
+                    {"{{json variable}}"} to stringify objects
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -167,8 +168,8 @@ export const HttpRequestDialog = ({
                       />
                     </FormControl>
                     <FormDescription>
-                      JSON with templates variables. Use {'{{variables}}'} for
-                      simple values or {'{{json variable}}'} to stringify
+                      JSON with templates variables. Use {"{{variables}}"} for
+                      simple values or {"{{json variable}}"} to stringify
                       objects
                     </FormDescription>
                     <FormMessage />
