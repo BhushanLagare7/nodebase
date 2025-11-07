@@ -1,25 +1,28 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
-import { useAtomValue } from 'jotai';
-import { SaveIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { SidebarTrigger } from '@/components/ui/sidebar';
+import Link from "next/link";
+import { useAtomValue } from "jotai";
+import { SaveIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
+} from "@/components/ui/breadcrumb";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+
 import {
   useSuspenseWorkflow,
   useUpdateWorkflow,
   useUpdateWorkflowName,
-} from '@/features/workflows/hooks/use-workflows';
-import { Input } from '@/components/ui/input';
-import { editorAtom } from '../store/atoms';
+} from "@/features/workflows/hooks/use-workflows";
+
+import { editorAtom } from "../store/atoms";
 
 export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
   const editor = useAtomValue(editorAtom);
@@ -82,9 +85,9 @@ export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSave();
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       setName(workflow.name);
       setIsEditing(false);
     }
@@ -96,7 +99,7 @@ export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
         ref={inputRef}
         className="h-7 w-auto min-w-[100px] px-2"
         value={name}
-        onChange={e => setName(e.target.value)}
+        onChange={(e) => setName(e.target.value)}
         onBlur={handleSave}
         onKeyDown={handleKeyDown}
         disabled={updateWorkflow.isPending}

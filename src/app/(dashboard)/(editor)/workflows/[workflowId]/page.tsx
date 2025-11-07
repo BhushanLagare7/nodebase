@@ -1,14 +1,17 @@
-import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { requireAuth } from '@/lib/auth-utils';
-import { HydrateClient } from '@/trpc/server';
-import { prefetchWorkflow } from '@/features/workflows/server/prefetch';
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+
+import { HydrateClient } from "@/trpc/server";
+
+import { requireAuth } from "@/lib/auth-utils";
+
 import {
   Editor,
   EditorError,
   EditorLoading,
-} from '@/features/editor/components/editor';
-import { EditorHeader } from '@/features/editor/components/editor-header';
+} from "@/features/editor/components/editor";
+import { prefetchWorkflow } from "@/features/workflows/server/prefetch";
+import { EditorHeader } from "@/features/editor/components/editor-header";
 
 interface PageProps {
   params: Promise<{
