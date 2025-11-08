@@ -10,11 +10,11 @@ import {
   protectedProcedure,
 } from "@/trpc/init";
 
-import { inngest } from "@/inngest/client";
-
 import { PAGINATION } from "@/config/constants";
 
 import { NodeType } from "@/generated/prisma";
+
+import { sendWorkflowExecution } from "@/inngest/utils";
 
 export const workflowsRouter = createTRPCRouter({
   execute: protectedProcedure
@@ -24,10 +24,7 @@ export const workflowsRouter = createTRPCRouter({
         where: { id: input.id, userId: ctx.auth.user.id },
       });
 
-      await inngest.send({
-        name: "workflows/execute.workflow",
-        data: { workflowId: input.id },
-      });
+      await sendWorkflowExecution({ workflowId: input.id });
 
       return workflow;
     }),

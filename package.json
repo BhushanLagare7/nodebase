@@ -7,6 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
+    "ngrok:dev": "ngrok http --url=$NGROK_URL 3000",
     "inngest:dev": "inngest-cli dev",
     "dev:all": "mprocs"
   },
