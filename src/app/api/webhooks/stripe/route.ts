@@ -1,7 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 import { sendWorkflowExecution } from "@/inngest/utils";
-import { success } from "zod";
 
 export async function POST(request: NextRequest) {
   try {
