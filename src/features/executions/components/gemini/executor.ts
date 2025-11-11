@@ -19,7 +19,6 @@ Handlebars.registerHelper("json", (context) => {
 type GeminiData = {
   variableName?: string;
   credentialId?: string;
-  model?: string;
   systemPrompt?: string;
   userPrompt?: string;
 };
@@ -27,6 +26,7 @@ type GeminiData = {
 export const geminiExecutor: NodeExecutor<GeminiData> = async ({
   data,
   nodeId,
+  userId,
   context,
   step,
   publish,
@@ -55,7 +55,9 @@ export const geminiExecutor: NodeExecutor<GeminiData> = async ({
   const userPrompt = Handlebars.compile(data.userPrompt)(context);
 
   const credential = await step.run("get-credential", () => {
-    return prisma.credential.findUnique({ where: { id: data.credentialId } });
+    return prisma.credential.findUnique({
+      where: { id: data.credentialId, userId },
+    });
   });
 
   if (!credential) {
