@@ -19,7 +19,6 @@ Handlebars.registerHelper("json", (context) => {
 type AnthropicData = {
   variableName?: string;
   credentialId?: string;
-  model?: string;
   systemPrompt?: string;
   userPrompt?: string;
 };
@@ -27,6 +26,7 @@ type AnthropicData = {
 export const anthropicExecutor: NodeExecutor<AnthropicData> = async ({
   data,
   nodeId,
+  userId,
   context,
   step,
   publish,
@@ -55,7 +55,9 @@ export const anthropicExecutor: NodeExecutor<AnthropicData> = async ({
   const userPrompt = Handlebars.compile(data.userPrompt)(context);
 
   const credential = await step.run("get-credential", () => {
-    return prisma.credential.findUnique({ where: { id: data.credentialId } });
+    return prisma.credential.findUnique({
+      where: { id: data.credentialId, userId },
+    });
   });
 
   if (!credential) {
