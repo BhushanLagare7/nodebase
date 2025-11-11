@@ -19,18 +19,18 @@ import {
 import type { Workflow } from "@/generated/prisma";
 
 import { useUpgradeModal } from "@/hooks/use-upgrade-modal";
+import { useEntitySearch } from "@/hooks/use-entity-search";
 
 import {
   useCreateWorkflow,
   useRemoveWorkflow,
   useSuspenseWorkflows,
 } from "../hooks/use-workflows";
-import { UseEntitySearch } from "../hooks/use-entity-search";
 import { useWorkflowsParams } from "../hooks/use-workflows-params";
 
 export const WorkflowsSearch = () => {
   const [params, setParams] = useWorkflowsParams();
-  const { searchValue, onSearchChange } = UseEntitySearch({
+  const { searchValue, onSearchChange } = useEntitySearch({
     params,
     setParams,
   });
