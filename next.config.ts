@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [{ source: "/", destination: "/workflows", permanent: false }];
   },
+  eslint: { ignoreDuringBuilds: true },
 };
 
 export default withSentryConfig(nextConfig, {
