@@ -13,6 +13,7 @@ import { fetchDiscordRealtimeToken } from "./actions";
 import { DiscordDialog, DiscordFormValues } from "./dialog";
 
 type DiscordNodeData = {
+  variableName?: string;
   webhookUrl?: string;
   content?: string;
   username?: string;

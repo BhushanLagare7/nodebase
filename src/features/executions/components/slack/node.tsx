@@ -13,6 +13,7 @@ import { fetchSlackRealtimeToken } from "./actions";
 import { SlackDialog, SlackFormValues } from "./dialog";
 
 type SlackNodeData = {
+  variableName?: string;
   webhookUrl?: string;
   content?: string;
 };
