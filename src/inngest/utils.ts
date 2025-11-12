@@ -1,4 +1,5 @@
 import toposort from "toposort";
+import { createId } from "@paralleldrive/cuid2";
 
 import { Connection, Node } from "@/generated/prisma";
 
@@ -57,5 +58,9 @@ export const sendWorkflowExecution = (data: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }) => {
-  return inngest.send({ name: "workflows/execute.workflow", data });
+  return inngest.send({
+    name: "workflows/execute.workflow",
+    data,
+    id: createId(),
+  });
 };
